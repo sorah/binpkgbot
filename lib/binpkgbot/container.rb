@@ -67,6 +67,7 @@ cp -pr #{COPY_TMPDIR}-#{copy[:id]} #{copy[:to].shellescape}
       r,w = IO.pipe
       w.puts script
       pid = spawn(*command_line, in: r)
+      puts "--> #{command_line.shelljoin}"
       r.close
       w.close
       _, status = Process.waitpid2(pid)
