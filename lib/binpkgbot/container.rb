@@ -47,7 +47,7 @@ cp -pr #{COPY_TMPDIR}-#{copy[:id]} #{copy[:to].shellescape}
         @copies.map { |copy| {from: copy[:from], to: "/#{COPY_TMPDIR}-#{copy[:id]}", writable: false} } + \
         [
           {from: workdir, to: WORKDIR, writable: true},
-          {from: SHAREDIR_SRC, to: SHAREDIR, writable: true},
+          {from: SHAREDIR_SRC, to: SHAREDIR, writable: false},
         ]
     end
 
