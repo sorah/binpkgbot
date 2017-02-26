@@ -67,7 +67,7 @@ tasks:
   - upgrade: '@world' # emerge -uDN @world
   - install:
       atom: '@preserve-rebuild'
-      persist: true # Run sd-nspawn without --ephemeral option, default to false
+      persist: true # Run sd-nspawn without --ephemeral option, default to false.
 
 
   # Simple way
@@ -75,6 +75,7 @@ tasks:
   # Complex way
   - install:
       atom: 'media-apps/ffmpeg'
+      ## Using these flag modifier (:use, :accept_keywords, :unmasks, :masks) to define variants.
       use: x265
       ## or
       # use:
