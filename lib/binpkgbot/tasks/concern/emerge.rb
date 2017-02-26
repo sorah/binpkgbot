@@ -8,7 +8,7 @@ module Binpkgbot
           emerge(nil, script: script, **options)
         end
 
-        def emerge(atom, *args, ephemeral: !@options[:persist], use: @options[:use], accept_keywords: @options.fetch(:accept_keywords, true), unmasks: @options[:unmasks], masks: @options[:masks], script: nil)
+        def emerge(atom, *args, ephemeral: !@options[:persist], use: @options[:use], accept_keywords: @options[:accept_keywords], unmasks: @options[:unmasks], masks: @options[:masks], script: nil)
           EmergeRunner.new(
             atom, *args,
             ephemeral: ephemeral,
