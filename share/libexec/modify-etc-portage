@@ -1,0 +1,51 @@
+#!/usr/bin/python3
+import re
+import sys
+import os
+import glob
+
+if len(sys.argv) != 3:
+    print("Usage: modify-etc-portage file-to-add target", file=sys.stderr)
+    sys.exit(1)
+
+source = sys.argv[1]
+target = sys.argv[2]
+
+if not os.path.exists(source):
+    sys.exit(0)
+
+source_content = []
+with open(source, 'r') as io:
+    for line in io:
+        if not re.match("^#", line):
+            source_content.append(re.split("\s+", line.rstrip()))
+
+target_is_directory = os.path.isdir(target)
+
+target_content = []
+if target_is_directory:
+    paths = sorted(glob.glob(os.path.join(target, "*")))
+    for path in paths:
+        with open(path, 'r') as io:
+            for line in io:
+                if not re.match("^#", line):
+                    target_content.append(re.split("\s+", line.rstrip()))
+elif os.path.exists(target):
+    with open(target, 'r') as io:
+        for line in io:
+            if not re.match("^#", line):
+                target_content.append(re.split("\s+", line.rstrip()))
+
+
+source_atoms = [x[0] for x in source_content]
+filtered_target_content = [x for x in target_content if not x[0] in source_atoms]
+
+new_content = filtered_target_content + source_content
+new_content_str = "\n".join([" ".join(x) for x in new_content]) + "\n"
+
+if target_is_directory:
+    os.rename(target, target + "." + str(os.getpid()))
+
+with open(target, 'w') as io:
+    io.write(new_content_str)
+

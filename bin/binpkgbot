@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+require 'binpkgbot'
+
+Binpkgbot::Cli.new(ARGV).run
