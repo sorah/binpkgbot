@@ -82,7 +82,7 @@ tasks:
       #   - x265
       #   # to other packages
       #   - media-libs/x265 numa
-      accept_keywords: true # default to ~*
+      accept_keywords: false # default: true (~*)
       # accept_keywords:
       #   - true
       #   # - "~amd64"
