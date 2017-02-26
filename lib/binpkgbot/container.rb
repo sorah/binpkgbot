@@ -43,7 +43,7 @@ cp -pr #{COPY_TMPDIR}-#{copy[:id]} #{copy[:to].shellescape}
 
     def binds
       @binds + \
-        (@config&.binds || []) + \
+        normalize_binds(@config&.binds || []) + \
         @copies.map { |copy| {from: copy[:from], to: "/#{COPY_TMPDIR}-#{copy[:id]}", writable: false} } + \
         [
           {from: workdir, to: WORKDIR, writable: true},
