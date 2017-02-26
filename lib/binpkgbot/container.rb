@@ -84,9 +84,9 @@ cp -pr #{COPY_TMPDIR}-#{copy[:id]} #{copy[:to].shellescape}
         case
         when bind.kind_of?(String)
           {from: bind, to: bind, writable: false}
-        when bind[:ro]
+        when bind.kind_of?(Hash) && bind[:ro]
           {from: bind[:ro], to: bind[:ro], writable: false}
-        when bind[:rw]
+        when bind.kind_of?(Hash) && bind[:rw]
           {from: bind[:rw], to: bind[:rw], writable: true}
         when bind.kind_of?(Hash)
           bind
